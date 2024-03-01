@@ -1,0 +1,85 @@
+// Poppins font
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// typography
+$font-size: 16px;
+$font-family: 'Poppins', serif;
+
+// theme colors
+$clr-primary: #5e84d5; // blue
+$clr-second: #63a463; // green
+$clr-black: rgb(20,20,20);
+
+$clr-error: #c42424; // red
+$clr-warning: #cbcb5a; // yellow
+
+// spacing
+$spc-base-padding: 0.75rem;
+$spc-base-margin: 0.75rem;
+
+// input field options
+$f-border-radius: 5px; // sharpness of field corners
+$f-border: 1px solid $clr-primary; // width & color of field
+$f-border-error: 1px solid $clr-error; // width & color of field with error
+$f-focus-outline: 1px solid $clr-primary; // outline width & color at focus of field
+$f-focus-outline-error: 1px solid $clr-error; // outline width & color at focus of field with error
+$f-focus-shadow: 0 0 4px transparentize($clr-primary, 0.5); // shadow color at focus
+$f-focus-shadow-error: 0 0 4px transparentize($clr-error, 0.5); // shadow color at focus with error
+$f-padding: 5px;
+
+
+* {
+  font-family: $font-family;
+}
+
+h1, h2, p {
+  color: $clr-black;
+}
+
+p {
+  font-size: $font-size;
+}
+
+// container with input field
+.limited-input-field {
+
+  width: 200px;
+
+  input:not(input[type='submit']) {
+    // input field
+    border-radius: $f-border-radius;
+    padding: $f-padding;
+    border: $f-border;
+    width: 95%;
+  }
+
+  input:not(input[type='submit']):focus {
+    // input field at focus
+    box-shadow: $f-focus-shadow;
+    outline: $f-focus-outline;
+  }
+
+  p.characters-amount {
+    // number of characters
+    margin: 0;
+    text-align: right;
+    font-size: round($font-size/1.2);
+    color: transparentize($clr-black, 0.4);
+  }
+
+  // input field with error
+  input:not(input[type='submit']).error {
+    border: $f-border-error;
+    color: transparentize($clr-error, 0.4);
+  }
+
+  input:not(input[type='submit']).error:focus {
+    outline: $f-focus-outline-error !important;
+    box-shadow: $f-focus-shadow-error !important;
+  }
+
+  p.characters-amount.error {
+    color: transparentize($clr-error, 0.4);
+  }
+
+}
