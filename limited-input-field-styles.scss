@@ -26,6 +26,44 @@ $f-focus-outline-error: 1px solid $clr-error; // outline width & color at focus 
 $f-focus-shadow: 0 0 4px transparentize($clr-primary, 0.5); // shadow color at focus
 $f-focus-shadow-error: 0 0 4px transparentize($clr-error, 0.5); // shadow color at focus with error
 $f-padding: 5px;
+$f-mgb: 10px; // margin from the bottom of the container
+
+// field width variations
+$f-widths: (
+  'small': 100px,
+  'medium': 200px,
+  'large': 400px,
+  '50': 50%,
+  '100': 90%, // 100%
+);
+
+
+// define mixin for field
+@mixin input-field {
+  border-radius: $f-border-radius;
+  padding: $f-padding;
+  border: $f-border;
+  width: 100%;
+}
+
+// define mixin for field at focus
+@mixin input-field--focus {
+  box-shadow: $f-focus-shadow;
+  outline: $f-focus-outline;
+}
+
+// define mixin for field with error
+@mixin input-field__error {
+  border: $f-border-error;
+  color: transparentize($clr-error, 0.4);
+}
+
+// define mixin for field with error at focus
+@mixin input-field__error--focus {
+  outline: $f-focus-outline-error !important;
+  box-shadow: $f-focus-shadow-error !important;
+}
+
 
 
 * {
@@ -40,23 +78,20 @@ p {
   font-size: $font-size;
 }
 
-// container with input field
-.limited-input-field {
+.field-limited {
+  // container with input field
 
-  width: 200px;
+  width: 200px; // width of container
+  margin-bottom: $f-mgb;
 
   input:not(input[type='submit']) {
     // input field
-    border-radius: $f-border-radius;
-    padding: $f-padding;
-    border: $f-border;
-    width: 95%;
+    @include input-field;
   }
 
   input:not(input[type='submit']):focus {
     // input field at focus
-    box-shadow: $f-focus-shadow;
-    outline: $f-focus-outline;
+    @include input-field--focus;
   }
 
   p.characters-amount {
@@ -67,19 +102,25 @@ p {
     color: transparentize($clr-black, 0.4);
   }
 
-  // input field with error
+  // input field with error & notify about character limit exceeded
+
   input:not(input[type='submit']).error {
-    border: $f-border-error;
-    color: transparentize($clr-error, 0.4);
+    @include input-field__error;
   }
 
   input:not(input[type='submit']).error:focus {
-    outline: $f-focus-outline-error !important;
-    box-shadow: $f-focus-shadow-error !important;
+    @include input-field__error--focus;
   }
 
   p.characters-amount.error {
     color: transparentize($clr-error, 0.4);
   }
 
+}
+
+// loop generation of field widths
+@each $name, $size in $f-widths {
+  .field__#{$name} {
+    width: $size;
+  }
 }

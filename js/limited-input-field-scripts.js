@@ -1,6 +1,6 @@
 
 // collection with all input field containers
-const fieldContainers = document.getElementsByClassName('limited-input-field');
+const fieldContainers = document.getElementsByClassName('field-limited');
 
 
 for (let i = 0; i < fieldContainers.length; i++) {
