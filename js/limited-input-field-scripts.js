@@ -7,14 +7,28 @@ for (let i = 0; i < fieldContainers.length; i++) {
     const field = fieldContainers[i].getElementsByTagName('input')[0];
 
     // set standard amount of characters at field & max length
+    if (field.max != 0) {
+        var characters = `${field.value.length-field.min}/${field.max-field.min}`;
+    }
+    else{
+        // if maximum characters is not set
+        var characters = `${field.value.length-field.min}`;
+    }
     fieldContainers[i].getElementsByClassName('characters-amount')[0].innerHTML
-        = `${field.value.length-field.min}/${field.max-field.min}`;
+        = characters;
 
     field.addEventListener('input', () => {
         // update the characters amount paragraph
         // set field value length
         const p = fieldContainers[i].getElementsByClassName('characters-amount')[0];
-        p.innerHTML = `${field.value.length-field.min}/${field.max-field.min}`;
+
+        if (field.max != 0) {
+            p.innerHTML = `${field.value.length-field.min}/${field.max-field.min}`;
+        }
+        else{
+            // if maximum characters is not set
+            p.innerHTML = `${field.value.length-field.min}`;
+        }
 
         if (field.value.length-field.min < 0) {
             // if is no minimum number of characters in the input field
@@ -22,7 +36,7 @@ for (let i = 0; i < fieldContainers.length; i++) {
             p.classList.add('warning');
         }
 
-        else if (field.value.length > field.max) {
+        else if (field.value.length > field.max && field.max != 0) {
             // if the limit of characters was exceeded
             field.classList.add('error');
             p.classList.add('error');
