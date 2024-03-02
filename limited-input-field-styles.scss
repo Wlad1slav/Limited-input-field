@@ -71,7 +71,6 @@ $f-widths: (
 }
 
 
-
 * {
   font-family: $font-family;
 }
@@ -90,12 +89,14 @@ p {
   width: 200px; // width of container
   margin-bottom: $f-mgb;
 
-  input:not(input[type='submit']) {
+  input:not(input[type='submit']),
+  textarea {
     // input field
     @include input-field;
   }
 
-  input:not(input[type='submit']):focus {
+  input:not(input[type='submit']):focus,
+  textarea:focus {
     // input field at focus
     @include input-field--focus;
   }
@@ -110,11 +111,13 @@ p {
 
   // input field with error & notify about character limit exceeded
 
-  input:not(input[type='submit']).error {
+  input:not(input[type='submit']).error,
+  textarea.error {
     @include input-field__error;
   }
 
-  input:not(input[type='submit']).error:focus {
+  input:not(input[type='submit']).error:focus,
+  textarea.error:focus {
     @include input-field__error--focus;
   }
 
@@ -123,11 +126,13 @@ p {
   }
 
   // input field with warning & notify about lack of characters
-  input:not(input[type='submit']).warning {
+  input:not(input[type='submit']).warning,
+  textarea.warning {
     @include input-field__warning;
   }
 
-  input:not(input[type='submit']).warning:focus {
+  input:not(input[type='submit']).warning:focus,
+  textarea.warning:focus {
     @include input-field__warning--focus;
   }
 
@@ -142,3 +147,10 @@ p {
     width: $size;
   }
 }
+
+// loop generation of field widths
+//@each $name, $size in $f-heights {
+//  .field__h-#{$name} input:not(input[type='submit']) {
+//    height: $size;
+//  }
+//}
