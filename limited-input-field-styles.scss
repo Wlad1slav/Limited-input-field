@@ -11,7 +11,7 @@ $clr-second: #63a463; // green
 $clr-black: rgb(20,20,20);
 
 $clr-error: #c42424; // red
-$clr-warning: #cbcb5a; // yellow
+$clr-warning: #de8254; // yellow
 
 // spacing
 $spc-base-padding: 0.75rem;
@@ -19,12 +19,6 @@ $spc-base-margin: 0.75rem;
 
 // input field options
 $f-border-radius: 5px; // sharpness of field corners
-$f-border: 1px solid $clr-primary; // width & color of field
-$f-border-error: 1px solid $clr-error; // width & color of field with error
-$f-focus-outline: 1px solid $clr-primary; // outline width & color at focus of field
-$f-focus-outline-error: 1px solid $clr-error; // outline width & color at focus of field with error
-$f-focus-shadow: 0 0 4px transparentize($clr-primary, 0.5); // shadow color at focus
-$f-focus-shadow-error: 0 0 4px transparentize($clr-error, 0.5); // shadow color at focus with error
 $f-padding: 5px;
 $f-mgb: 10px; // margin from the bottom of the container
 
@@ -42,26 +36,38 @@ $f-widths: (
 @mixin input-field {
   border-radius: $f-border-radius;
   padding: $f-padding;
-  border: $f-border;
+  border: 1px solid $clr-primary;
   width: 100%;
 }
 
 // define mixin for field at focus
 @mixin input-field--focus {
-  box-shadow: $f-focus-shadow;
-  outline: $f-focus-outline;
+  box-shadow: 0 0 4px transparentize($clr-primary, 0.5);
+  outline: 1px solid $clr-primary;
 }
 
 // define mixin for field with error
 @mixin input-field__error {
-  border: $f-border-error;
+  border: 1px solid $clr-error;
   color: transparentize($clr-error, 0.4);
 }
 
 // define mixin for field with error at focus
 @mixin input-field__error--focus {
-  outline: $f-focus-outline-error !important;
-  box-shadow: $f-focus-shadow-error !important;
+  outline: 1px solid $clr-error !important;
+  box-shadow: 0 0 4px transparentize($clr-error, 0.5) !important;
+}
+
+// define mixin for field with warning
+@mixin input-field__warning {
+  border: 1px solid $clr-warning;
+  color: transparentize($clr-warning, 0.1);
+}
+
+// define mixin for field with warning at focus
+@mixin input-field__warning--focus {
+  outline: 1px solid $clr-warning !important;
+  box-shadow: 0 0 4px transparentize($clr-warning, 0.5) !important;
 }
 
 
@@ -116,6 +122,18 @@ p {
     color: transparentize($clr-error, 0.4);
   }
 
+  // input field with warning & notify about lack of characters
+  input:not(input[type='submit']).warning {
+    @include input-field__warning;
+  }
+
+  input:not(input[type='submit']).warning:focus {
+    @include input-field__warning--focus;
+  }
+
+  p.characters-amount.warning {
+    color: transparentize($clr-warning, 0.4);
+  }
 }
 
 // loop generation of field widths
